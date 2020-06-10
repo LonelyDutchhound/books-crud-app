@@ -32,7 +32,6 @@ export class BooklistContainerComponent implements OnInit {
 
   onCreateBook(book: Book) {
     this.store.dispatch(createBook({book}));
-    this.store.dispatch(loadBooks());
   }
 
   onUpdateBook(bookUpdate: Book) {
@@ -41,11 +40,9 @@ export class BooklistContainerComponent implements OnInit {
       changes: bookUpdate
     };
     this.store.dispatch(editBook({update}));
-    this.store.dispatch(loadBooks());
   }
 
   onDeleteBook(id: string) {
     this.store.dispatch(deleteBook({id}));
-    this.store.dispatch(loadBooks());
   }
 }

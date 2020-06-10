@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Actions, ofType} from '@ngrx/effects';
-import {concatMap, map, switchMap} from 'rxjs/operators';
-import {of} from 'rxjs';
+import {concatMap, map} from 'rxjs/operators';
 import {createEffect} from '@ngrx/effects';
 import {BooksService} from '../../services/books.service';
 import {Book} from '../books.model';
@@ -15,7 +14,7 @@ export class BookEffects {
     this.actions$.pipe(
       ofType(BookActions.createBook),
       concatMap((action) => this.createBook(action.book)),
-      switchMap((_) => of(BookActions.loadBooks()))
+      map((_) => BookActions.loadBooks())
     )
   );
 
@@ -30,15 +29,17 @@ export class BookEffects {
   updateBook$ = createEffect(() =>
     this.actions$.pipe(
       ofType(BookActions.editBook),
-      concatMap((action) => this.updateBook(action.update.id, action.update.changes))
-    ), {dispatch: false}
+      concatMap((action) => this.updateBook(action.update.id, action.update.changes)),
+      map((_) => BookActions.loadBooks())
+    )
   );
 
   deleteBook$ = createEffect(() =>
     this.actions$.pipe(
       ofType(BookActions.deleteBook),
-      concatMap((action) => this.deleteBook(action.id))
-    ), {dispatch: false}
+      concatMap((action) => this.deleteBook(action.id)),
+      map((_) => BookActions.loadBooks())
+    )
   );
 
   constructor(private actions$: Actions,
