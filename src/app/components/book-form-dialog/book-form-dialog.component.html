@@ -1,0 +1,48 @@
+<div class="card mt-2" style="width: 42rem;">
+  <div class="card-body">
+    <form class="col"
+          [formGroup]="bookForm">
+      <h4 class="col">{{header}}</h4>
+      <div class="mb-3">
+        <label for="title">Title</label>
+        <input type="text" class="form-control" id="title" placeholder=""
+               formControlName="title">
+        <div class="invalid-feedback">
+          Please enter the title.
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="author">Author</label>
+        <input type="text" class="form-control" id="author" placeholder=""
+               formControlName="author">
+        <div class="invalid-feedback">
+          Please enter the author.
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="desc">Description</label>
+        <input type="text" class="form-control" id="desc" placeholder=""
+               formControlName="description">
+      </div>
+      <div>
+        <button *ngIf="buttonConfig.canUpdate" type="button" class="btn btn-primary mr-2 dialog-btn"
+                (click)="updateBookRecord()">
+          Edit
+        </button>
+        <button *ngIf="buttonConfig.canDelete" type="button" class="btn btn-danger mr-2 dialog-btn"
+                (click)="deleteBookRecord()">
+          Delete
+        </button>
+        <button *ngIf="buttonConfig.canCancel" type="button" class="btn btn-light mr-2 dialog-btn"
+                (click)="onCancel()">
+          Cancel
+        </button>
+        <button *ngIf="buttonConfig.canSave" type="button" class="btn btn-success mr-2 dialog-btn"
+                [disabled]="!bookForm.valid"
+                (click)="createNewRecord()">
+          Save
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

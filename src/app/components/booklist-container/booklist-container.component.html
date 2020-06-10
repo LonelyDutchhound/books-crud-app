@@ -1,0 +1,16 @@
+<div class="container">
+  <h1>Book List</h1>
+  <app-book-form-dialog
+    [buttonConfig]="createDialogButtonConfig"
+    [header]="dialogHeader"
+    (createNewBook)="onCreateBook($event)"
+    (deleteBook)="onDeleteBook($event)">
+  </app-book-form-dialog>
+  <app-book-card
+    *ngFor="let book of books$ | async"
+    [book]="book"
+    (updateBook)="onUpdateBook($event)"
+    (deleteBook)="onDeleteBook($event)">
+  </app-book-card>
+</div>
+

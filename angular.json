@@ -123,6 +123,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "book-crud-app"
+    }
+  },
+  "defaultProject": "book-crud-app",
+  "cli": {
+    "analytics": "d2471d45-52e0-480e-b80a-854466793916"
+  }
 }
