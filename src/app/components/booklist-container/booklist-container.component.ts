@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {Book} from '../../store/books.model';
 import {Observable} from 'rxjs';
 import {Store} from '@ngrx/store';
@@ -9,7 +9,8 @@ import {selectAllBooks} from '../../store/selectors/book.selectors';
 @Component({
   selector: 'app-booklist-container',
   templateUrl: './booklist-container.component.html',
-  styleUrls: ['./booklist-container.component.scss']
+  styleUrls: ['./booklist-container.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BooklistContainerComponent implements OnInit {
 

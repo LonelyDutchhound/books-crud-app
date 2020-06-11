@@ -26,7 +26,7 @@
       </div>
       <div>
         <button *ngIf="buttonConfig.canUpdate" type="button" class="btn btn-primary mr-2 dialog-btn"
-                (click)="updateBookRecord()">
+                (click)="updateBookRecord()" [disabled]="!bookForm.valid">
           Edit
         </button>
         <button *ngIf="buttonConfig.canDelete" type="button" class="btn btn-danger mr-2 dialog-btn"

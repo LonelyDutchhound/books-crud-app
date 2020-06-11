@@ -1,11 +1,12 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Book} from '../../store/books.model';
 import {ButtonConfig} from '../book-form-dialog/book-form-dialog.component';
 
 @Component({
   selector: 'app-book-card',
   templateUrl: './book-card.component.html',
-  styleUrls: ['./book-card.component.scss']
+  styleUrls: ['./book-card.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BookCardComponent implements OnInit {
   public updateDialogButtonConfig: ButtonConfig = {

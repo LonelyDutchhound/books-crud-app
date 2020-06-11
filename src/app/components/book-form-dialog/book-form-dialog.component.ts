@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {Book} from '../../store/books.model';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
@@ -12,7 +12,8 @@ export interface ButtonConfig {
 @Component({
   selector: 'app-book-form-dialog',
   templateUrl: './book-form-dialog.component.html',
-  styleUrls: ['./book-form-dialog.component.scss']
+  styleUrls: ['./book-form-dialog.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BookFormDialogComponent implements OnInit, OnChanges {
 
@@ -40,8 +41,8 @@ export class BookFormDialogComponent implements OnInit, OnChanges {
     if (changes.book) {
       const {title, author, description} = changes.book.currentValue;
       this.bookForm = this.fb.group({
-        title,
-        author,
+        title: [title, Validators.required],
+        author: [author, Validators.required],
         description
       });
     } else {
@@ -63,6 +64,7 @@ export class BookFormDialogComponent implements OnInit, OnChanges {
   }
 
   updateBookRecord() {
+    console.log(this.bookForm.valid);
     this.updateBook.emit({ ...this.bookForm.value, id: this.book.id});
   }
 
