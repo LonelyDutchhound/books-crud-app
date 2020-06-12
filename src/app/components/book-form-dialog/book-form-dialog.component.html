@@ -7,7 +7,7 @@
         <label for="title">Title</label>
         <input type="text" class="form-control" id="title" placeholder=""
                formControlName="title">
-        <div class="invalid-feedback">
+        <div *ngIf="isControlValid('title')" class="invalid-message">
           Please enter the title.
         </div>
       </div>
@@ -15,7 +15,7 @@
         <label for="author">Author</label>
         <input type="text" class="form-control" id="author" placeholder=""
                formControlName="author">
-        <div class="invalid-feedback">
+        <div *ngIf="isControlValid('author')" class="invalid-message">
           Please enter the author.
         </div>
       </div>

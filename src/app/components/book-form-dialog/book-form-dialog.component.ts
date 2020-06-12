@@ -61,6 +61,7 @@ export class BookFormDialogComponent implements OnInit, OnChanges {
       author: '',
       description: ''
     });
+    this.bookForm.markAsUntouched();
   }
 
   updateBookRecord() {
@@ -74,5 +75,9 @@ export class BookFormDialogComponent implements OnInit, OnChanges {
 
   onCancel() {
     this.cancel.emit();
+  }
+
+  isControlValid(controlName) {
+    return !this.bookForm.controls[controlName].valid && this.bookForm.controls[controlName].touched;
   }
 }
