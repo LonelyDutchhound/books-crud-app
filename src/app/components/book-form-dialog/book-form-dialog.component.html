@@ -26,11 +26,11 @@
       </div>
       <div>
         <button *ngIf="buttonConfig.canUpdate" type="button" class="btn btn-primary mr-2 dialog-btn"
-                (click)="updateBookRecord()" [disabled]="!bookForm.valid">
+                (click)="updateBook()" [disabled]="!bookForm.valid">
           Edit
         </button>
         <button *ngIf="buttonConfig.canDelete" type="button" class="btn btn-danger mr-2 dialog-btn"
-                (click)="deleteBookRecord()">
+                (click)="deleteBook()">
           Delete
         </button>
         <button *ngIf="buttonConfig.canCancel" type="button" class="btn btn-light mr-2 dialog-btn"
@@ -39,7 +39,7 @@
         </button>
         <button *ngIf="buttonConfig.canSave" type="button" class="btn btn-success mr-2 dialog-btn"
                 [disabled]="!bookForm.valid"
-                (click)="createNewRecord()">
+                (click)="createBook()">
           Save
         </button>
       </div>

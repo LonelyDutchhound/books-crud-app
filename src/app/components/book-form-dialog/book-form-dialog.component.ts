@@ -1,6 +1,17 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  SimpleChanges
+} from '@angular/core';
 import {Book} from '../../store/books.model';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Store} from '@ngrx/store';
+import {createBook, deleteBook, editBook} from '../../store/actions/book.actions';
 
 export interface ButtonConfig {
   canCancel: boolean;
@@ -26,13 +37,12 @@ export class BookFormDialogComponent implements OnInit, OnChanges {
     canSave: false,
     canUpdate: false
   };
-  @Output() createNewBook: EventEmitter<any> = new EventEmitter<Book>();
-  @Output() updateBook: EventEmitter<any> = new EventEmitter<Book>();
-  @Output() deleteBook: EventEmitter<any> = new EventEmitter<Book>();
   @Output() cancel: EventEmitter<any> = new EventEmitter<any>();
+  @Output() notifyUpdateBook: EventEmitter<any> = new EventEmitter<any>();
 
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder,
+              private store: Store) { }
 
   ngOnInit(): void {
   }
@@ -54,8 +64,8 @@ export class BookFormDialogComponent implements OnInit, OnChanges {
     }
   }
 
-  createNewRecord() {
-    this.createNewBook.emit(this.bookForm.value);
+  createBook() {
+    this.store.dispatch(createBook({book: this.bookForm.value}));
     this.bookForm.setValue({
       title: '',
       author: '',
@@ -64,13 +74,17 @@ export class BookFormDialogComponent implements OnInit, OnChanges {
     this.bookForm.markAsUntouched();
   }
 
-  updateBookRecord() {
-    console.log(this.bookForm.valid);
-    this.updateBook.emit({ ...this.bookForm.value, id: this.book.id});
+  updateBook() {
+    const update = {
+      id: this.book.id,
+      changes: this.bookForm.value
+    };
+    this.store.dispatch(editBook({update}));
+    this.notifyUpdateBook.emit();
   }
 
-  deleteBookRecord() {
-    this.deleteBook.emit(this.book.id);
+  deleteBook() {
+    this.store.dispatch(deleteBook({id: this.book.id}));
   }
 
   onCancel() {

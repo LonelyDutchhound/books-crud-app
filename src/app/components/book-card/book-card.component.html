@@ -6,7 +6,7 @@
       <p class="card-text">{{book.description}}</p>
       <div>
         <button type="button" class="btn btn-danger mr-2 dialog-btn"
-                (click)="onDeleteBookRecord(book.id)">
+                (click)="deleteBook()">
           Delete
         </button>
         <button type="button" class="btn btn-primary mr-2 dialog-btn"
@@ -23,8 +23,7 @@
     [book]="book"
     [header]="dialogHeader"
     [buttonConfig]="updateDialogButtonConfig"
-    (updateBook)="onUpdateBookRecord($event)"
-    (deleteBook)="onDeleteBookRecord($event)"
+    (notifyUpdateBook)="onUpdateBook()"
     (cancel)="onCloseEditingDialog()">
   </app-book-form-dialog>
 </ng-template>

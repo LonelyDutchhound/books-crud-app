@@ -1,6 +1,8 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
 import {Book} from '../../store/books.model';
 import {ButtonConfig} from '../book-form-dialog/book-form-dialog.component';
+import {Store} from '@ngrx/store';
+import {deleteBook} from '../../store/actions/book.actions';
 
 @Component({
   selector: 'app-book-card',
@@ -17,23 +19,20 @@ export class BookCardComponent implements OnInit {
   };
 
   @Input() book: Book;
-  @Output() updateBook: EventEmitter<any> = new EventEmitter<Book>();
-  @Output() deleteBook: EventEmitter<any> = new EventEmitter<string>();
   public isEdited = false;
   public dialogHeader = 'Update book card';
 
-  constructor() { }
+  constructor(private store: Store) { }
 
   ngOnInit(): void {
   }
 
-  onUpdateBookRecord(book: Book) {
-    this.updateBook.emit(book);
-    this.onCloseEditingDialog();
+  deleteBook() {
+    this.store.dispatch(deleteBook({id: this.book.id}));
   }
 
-  onDeleteBookRecord(bookID: string) {
-    this.deleteBook.emit(bookID);
+  onUpdateBook() {
+    this.onCloseEditingDialog();
   }
 
   onCloseEditingDialog() {
