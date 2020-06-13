@@ -23,7 +23,7 @@ export class BooksService {
   }
 
   updateBook(id: string, updatedBook: Book) {
-    return this.httpClient.put(BaseUrl, {id, book: updatedBook});
+    return this.httpClient.put(`${BaseUrl}/${id}`, {book: updatedBook});
   }
 
   deleteBook(id: string) {

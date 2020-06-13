@@ -54,7 +54,7 @@ export class MimicBackendInterceptor implements HttpInterceptor {
     return null;
   }
 
-  private buildHTTPResponse(url: string, method: string, params = {}): Observable<HttpEvent<any>> {
+  private buildHTTPResponse(url: string, method: string, params: any = {}): Observable<HttpEvent<any>> {
 
     const responseConfiguration = this.getConfiguration(url);
     const urlID = url.split('/').length > 3 ? url.split('/')[4] : null;
@@ -63,7 +63,7 @@ export class MimicBackendInterceptor implements HttpInterceptor {
     if (urlID) {
       response = {
         ...responseConfiguration[method],
-        body: this.createResponseBody(method, {id: urlID})
+        body: this.createResponseBody(method, {...params, id: urlID})
       };
     } else {
       response = {
